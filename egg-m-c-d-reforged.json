@@ -1,0 +1,43 @@
+{
+    "_comment": "DO NOT EDIT: FILE GENERATED AUTOMATICALLY BY PTERODACTYL PANEL - PTERODACTYL.IO",
+    "meta": {
+        "version": "PTDL_v1",
+        "update_url": null
+    },
+    "exported_at": "2021-01-31T16:55:58+08:00",
+    "name": "MCDReforged",
+    "author": "me@xiao-jin.xyz",
+    "description": "MCDReforged (abbreviated as MCDR) is a tool which provides the management ability of the Minecraft server using custom plugin system. It doesn't need to modify or mod the original Minecraft server at all.",
+    "features": [
+        "eula"
+    ],
+    "images": [
+        "java11-py391:latest"
+    ],
+    "file_denylist": "",
+    "startup": "\/bin\/sh {{SERVER_BOOTFILE}}",
+    "config": {
+        "files": "{\r\n    \"server\/server.properties\": {\r\n        \"parser\": \"properties\",\r\n        \"find\": {\r\n            \"server-ip\": \"0.0.0.0\",\r\n            \"server-port\": \"{{server.build.default.port}}\"\r\n        }\r\n    }\r\n}",
+        "startup": "{\r\n    \"done\": \")! For help, type \",\r\n    \"userInteraction\": [\r\n        \"Go to eula.txt for more info.\"\r\n    ]\r\n}",
+        "logs": "{}",
+        "stop": "stop"
+    },
+    "scripts": {
+        "installation": {
+            "script": "echo -e \"Welcome to use mcHosts service.\"",
+            "container": "jinzhijie\/mchosts-installer:latest",
+            "entrypoint": "bash"
+        }
+    },
+    "variables": [
+        {
+            "name": "Server Boot Script",
+            "description": "The name of the server boot script to run the server with.",
+            "env_variable": "SERVER_BOOTFILE",
+            "default_value": "boot.sh",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|string|max:20"
+        }
+    ]
+}

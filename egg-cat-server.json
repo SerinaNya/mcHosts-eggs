@@ -1,0 +1,43 @@
+{
+    "_comment": "DO NOT EDIT: FILE GENERATED AUTOMATICALLY BY PTERODACTYL PANEL - PTERODACTYL.IO",
+    "meta": {
+        "version": "PTDL_v1",
+        "update_url": null
+    },
+    "exported_at": "2021-01-31T16:55:49+08:00",
+    "name": "CatServer",
+    "author": "me@xiao-jin.xyz",
+    "description": "CatServer is 1.12.2 version Forge+Bukkit+Spigot server.\r\nThe longest continuous update time, supporting most mods and plugins to run stably.",
+    "features": [
+        "eula"
+    ],
+    "images": [
+        "quay.io\/pterodactyl\/core:java"
+    ],
+    "file_denylist": "",
+    "startup": "java -Xms128M -Xmx{{SERVER_MEMORY}}M -Dterminal.jline=false -Dterminal.ansi=true -jar {{SERVER_JARFILE}}",
+    "config": {
+        "files": "{\r\n    \"server.properties\": {\r\n        \"parser\": \"properties\",\r\n        \"find\": {\r\n            \"server-ip\": \"0.0.0.0\",\r\n            \"server-port\": \"{{server.build.default.port}}\"\r\n        }\r\n    }\r\n}",
+        "startup": "{\r\n    \"done\": \")! For help, type \",\r\n    \"userInteraction\": [\r\n        \"Go to eula.txt for more info.\"\r\n    ]\r\n}",
+        "logs": "{}",
+        "stop": "stop"
+    },
+    "scripts": {
+        "installation": {
+            "script": "#!\/bin\/bash\r\n# CatServer Installation Script\r\n#\r\n# Server Files: \/mnt\/server\r\nDOWNLOAD_URL=\"https:\/\/catserver.moe\/download\/universal\"\r\n\r\ncd \/mnt\/server\r\nrm -rf ${SERVER_JARFILE}\r\necho -e \"running aria2c -o ${SERVER_JARFILE} ${DOWNLOAD_URL}\"\r\n\r\naria2c -j16 -x16 -k1m -o ${SERVER_JARFILE} ${DOWNLOAD_URL}\r\n\r\nif [ ! -f server.properties ]; then\r\n    echo -e \"Downloading MC server.properties\"\r\n    curl -o server.properties https:\/\/cdn.jsdelivr.net\/gh\/parkervcp\/eggs@master\/minecraft\/java\/server.properties\r\nfi",
+            "container": "jinzhijie\/mchosts-installer:latest",
+            "entrypoint": "bash"
+        }
+    },
+    "variables": [
+        {
+            "name": "Server Jar File",
+            "description": "The name of the server jarfile to run the server with.",
+            "env_variable": "SERVER_JARFILE",
+            "default_value": "server.jar",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|string|max:20"
+        }
+    ]
+}
